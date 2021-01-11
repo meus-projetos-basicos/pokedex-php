@@ -59,6 +59,7 @@ class HomeController extends Controller
         $retorno = json_decode($response->getBody()->getContents(), true);
 
         $getEvolution = $client->request('get', "api/v2/evolution-chain/$id");
+//        apagar esse comentário
         $evolution = json_decode($getEvolution->getBody()->getContents(), true);
 
         return view('detalhes', [
