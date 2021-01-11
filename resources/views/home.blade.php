@@ -4,13 +4,32 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-8 mt-4 mb-4">
 
-                @foreach($lista->pokemon_entries as $pokemon)
-                    <ul>
-                        <li>name: {{  $pokemon->pokemon_species->name }}</li>
-                    </ul>
-                @endforeach
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Ação</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($lista->items() as $pokemon)
+                                <tr>
+                                    <td>{{ $pokemon['entry_number'] }}</td>
+                                    <td>{{ $pokemon['pokemon_species']['name'] }}</td>
+                                    <td><a href="{{ route('pokemon.detail', $pokemon['entry_number']) }}" class="btn btn-primary">Ver mais</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -18,17 +37,5 @@
 @endsection
 
 @push('js')
-    <script src="/assets/js/vue.js"></script>
-    <script>
-        $.ajax({
-            url: `https://pokeapi.co/api/v2/pokedex/1`,
-            type: 'GET',
-            success: function(data) {
-                $('#pokemons').empty();
-                $.each(data, function (index, value) {
-                    $('#pokemons').append('<div class="card"> +index+ : +value+ </div>')
-                })
-            },
-        })
-    </script>
+
 @endpush
