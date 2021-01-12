@@ -38,7 +38,23 @@ cujo nome é o mesmo.
     </tbody>
 </table>
 
-## Execução
+## Comandos de execução
 
-Inicie os containers: docker-compose up -d
+Para iniciar o projeto pela primeira vez, execute:
+docker-compose up -d --build
+
+Após o 1º build, poderá está executando sem a flag --build
+
+Para derrubar os container, execute:
+docker-compose down
+
+## Lista
+A lista está sendo visualizada assim como seus botões de acesso para os seus detalhes.
+
+## Campo de Pesquisa
+Ao pesquisar um pokemon, ele fará o filtro e logo em seguida redirecionará para a página do seu próprio detalhe
+
+
+
+
 

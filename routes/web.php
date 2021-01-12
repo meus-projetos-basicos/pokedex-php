@@ -20,4 +20,4 @@ Route::get('/', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('pokemon/{id}', [HomeController::class, 'pokemonDetail'])->name('pokemon.detail');
-Route::post('/busca', [HomeController::class, 'consultaApi'])->name('busca.pokemon');
+Route::post('/search', [HomeController::class, 'consultaApi'])->name('busca.pokemon');
