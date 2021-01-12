@@ -2,13 +2,6 @@
 
 namespace Tests\Feature;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PokemonControllerTest extends TestCase
@@ -26,9 +19,10 @@ class PokemonControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function pokemon_detail()
+    public function testPokemonDetail()
     {
-        $response = $this->get('/pokemon/{id}');
+        $response = $this->json('get','/pokemon/25');
+
         $response->assertStatus(200);
     }
 
