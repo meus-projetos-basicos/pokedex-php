@@ -12,26 +12,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <div class="row">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Alterna navegação">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="{{ route('home') }}">Home <span class="sr-only">(Página atual)</span></a>
-                    <a class="nav-item nav-link" href="#">Detalhes</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
-    @yield('content')
-</div>
+@yield('content')
 
 <script src="/assets/js/jquery-3.5.1.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>

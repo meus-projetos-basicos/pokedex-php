@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchFormRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -9,6 +10,14 @@ use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
+
+    private function getApi()
+    {
+        return $client = new Client([
+            'base_uri' => 'https://pokeapi.co/',
+            'timeout' => 2.0
+        ]);
+    }
 
     function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
     {
@@ -27,14 +36,6 @@ class HomeController extends Controller
         );
 
         return $paginator->appends($requests);
-    }
-
-    private function getApi()
-    {
-        return $client = new Client([
-            'base_uri' => 'https://pokeapi.co/',
-            'timeout' => 2.0
-        ]);
     }
 
     public function index()
@@ -58,13 +59,20 @@ class HomeController extends Controller
         $response = $client->request('get', "api/v2/pokemon/$id");
         $retorno = json_decode($response->getBody()->getContents(), true);
 
-        $getEvolution = $client->request('get', "api/v2/evolution-chain/$id");
-//        apagar esse comentário
-        $evolution = json_decode($getEvolution->getBody()->getContents(), true);
+        return view('detalhes', [
+            'retorno' => $retorno,
+        ]);
+    }
+
+    public function search(SearchFormRequest $request)
+    {
+        $client = $this->getApi();
+        $filtro = strtolower($request->filter);
+        $response = $client->request('get', "api/v2/pokemon/$filtro");
+        $retorno = json_decode($response->getBody()->getContents(), true);
 
         return view('detalhes', [
             'retorno' => $retorno,
-            'evolution' => $evolution
         ]);
     }
 }
