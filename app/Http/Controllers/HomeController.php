@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
 
-    function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
+    function paginator_instance($items, $requests = [], $perPage = 5, $currentPage = null, array $options = [])
     {
         $perPage = $perPage;
 
@@ -50,6 +50,29 @@ class HomeController extends Controller
         return view('home', [
             'lista' => $retorno
         ]);
+    }
+
+    public function consultaApi(Request $request)
+    {
+        $client = $this->getApi();
+        $response = $client->request(
+            'post',
+            'api/v2/pokedex/1',
+            [
+                'content-type' => 'application/json'
+            ],
+        );
+        $lista = json_decode($response->getBody()->getContents(), true);
+
+        if ($request->filter) {
+            dd($request->filter);
+            foreach ($lista['pokemon_entries'] as $pokemon) {
+                $lista->where($pokemon['pokemon_species']['name'], 'LIKE', "%{$request->filter}%");
+            }
+        }
+        $result = $request->get();
+
+        return view('lista', ['lista' => $result]);
     }
 
     public function pokemonDetail($id)

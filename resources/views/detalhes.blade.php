@@ -142,9 +142,9 @@
 @push('js')
     <script>
         $(".progressColor").each(function () {
-            var hue = 'rgb(' + (Math.floor((256 - 199) * Math.random()) + 200) + ','
-                + (Math.floor((256 - 199) * Math.random()) + 200) + ','
-                + (Math.floor((256 - 199) * Math.random()) + 200) + ')';
+            var hue = 'rgb(' + (Math.floor((28 - 255) * Math.random()) + 200) + ','
+                + (Math.floor((28 - 255) * Math.random()) + 200) + ','
+                + (Math.floor((28 - 255) * Math.random()) + 200) + ')';
             $(this).css("background-color", hue);
         });
     </script>
