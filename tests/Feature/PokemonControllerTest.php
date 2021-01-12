@@ -12,7 +12,6 @@ class PokemonControllerTest extends TestCase
      * @return void
      */
 
-
     public function testIndex()
     {
         $response = $this->get('/');
@@ -26,4 +25,5 @@ class PokemonControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
 }

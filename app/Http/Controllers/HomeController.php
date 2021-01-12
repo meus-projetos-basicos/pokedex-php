@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SearchFormRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -11,15 +10,7 @@ use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
 
-    private function getApi()
-    {
-        return $client = new Client([
-            'base_uri' => 'https://pokeapi.co/',
-            'timeout' => 2.0
-        ]);
-    }
-
-    function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
+    function paginator_instance($items, $requests = [], $perPage = 5, $currentPage = null, array $options = [])
     {
         $perPage = $perPage;
 
@@ -38,6 +29,14 @@ class HomeController extends Controller
         return $paginator->appends($requests);
     }
 
+    private function getApi()
+    {
+        return $client = new Client([
+            'base_uri' => 'https://pokeapi.co/',
+            'timeout' => 2.0
+        ]);
+    }
+
     public function index()
     {
         /**
@@ -53,26 +52,42 @@ class HomeController extends Controller
         ]);
     }
 
+    public function consultaApi(Request $request)
+    {
+        $client = $this->getApi();
+        $response = $client->request(
+            'post',
+            'api/v2/pokedex/1',
+            [
+                'content-type' => 'application/json'
+            ],
+        );
+        $lista = json_decode($response->getBody()->getContents(), true);
+
+        if ($request->filter) {
+            dd($request->filter);
+            foreach ($lista['pokemon_entries'] as $pokemon) {
+                $lista->where($pokemon['pokemon_species']['name'], 'LIKE', "%{$request->filter}%");
+            }
+        }
+        $result = $request->get();
+
+        return view('lista', ['lista' => $result]);
+    }
+
     public function pokemonDetail($id)
     {
         $client = $this->getApi();
         $response = $client->request('get', "api/v2/pokemon/$id");
         $retorno = json_decode($response->getBody()->getContents(), true);
 
-        return view('detalhes', [
-            'retorno' => $retorno,
-        ]);
-    }
-
-    public function search(SearchFormRequest $request)
-    {
-        $client = $this->getApi();
-        $filtro = strtolower($request->filter);
-        $response = $client->request('get', "api/v2/pokemon/$filtro");
-        $retorno = json_decode($response->getBody()->getContents(), true);
+        $getEvolution = $client->request('get', "api/v2/evolution-chain/$id");
+//        apagar esse comentário
+        $evolution = json_decode($getEvolution->getBody()->getContents(), true);
 
         return view('detalhes', [
             'retorno' => $retorno,
+            'evolution' => $evolution
         ]);
     }
 }
