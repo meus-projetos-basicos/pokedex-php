@@ -29,7 +29,7 @@ cujo nome é o mesmo.
       </tr>   
       <tr>
         <td>Guzzle</td>
-        <td><a target="_blank" href="https://jetstream.laravel.com/1.x/stacks/inertia.html">https://jetstream.laravel.com/1.x/stacks/inertia.html</a></td>
+        <td><a target="_blank" href="https://docs.guzzlephp.org/en/stable/">https://docs.guzzlephp.org/en/stable/</a></td>
       </tr>   
       <tr>
         <td>Insomnia</td>
