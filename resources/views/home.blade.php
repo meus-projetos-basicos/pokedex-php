@@ -9,7 +9,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <form class="form-inline">
+                        <form class="form-inline" method="Post" action="{{ route('busca.pokemon') }}">
                             @csrf
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="inputPassword2" class="sr-only">Sear</label>
