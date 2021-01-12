@@ -48,13 +48,15 @@ Após o 1º build, poderá está executando sem a flag --build
 Para derrubar os container, execute:
 docker-compose down
 
-## Lista
-A lista está sendo visualizada assim como seus botões de acesso para os seus detalhes.
-
 ## Campo de Pesquisa
 Ao pesquisar um pokemon, ele fará o filtro e logo em seguida redirecionará para a página do seu próprio detalhe
 
+## Lista
+A lista está sendo visualizada assim como seus botões de acesso para os seus detalhes.
 
+## Detalhes
+Cada pokemon tem os suas devidas características de poder, habilidades, forças, etc.
+Detalhei só os mais básicos.
 
 
 
