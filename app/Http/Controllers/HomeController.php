@@ -13,13 +13,13 @@ class HomeController extends Controller
 
     function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
     {
-        $perPage = $perPage;
+//        $perPage = $perPage;
 
-        $page = $currentPage ? $currentPage : \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage();
+        $page = $currentPage ? $currentPage : LengthAwarePaginator::resolveCurrentPage();
 
         $currentPageSearchResults = collect($items)->slice(($page - 1) * $perPage, $perPage)->all();
 
-        $paginator = (new \Illuminate\Pagination\LengthAwarePaginator($currentPageSearchResults, count($items), $perPage, $page, $options >= 1
+        $paginator = (new LengthAwarePaginator($currentPageSearchResults, count($items), $perPage, $page, $options >= 1
             ? $options
             : [
                 'path' => \Illuminate\Pagination\Paginator::resolveCurrentPath(),
