@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
 
-    function paginator_instance($items, $requests = [], $perPage = 5, $currentPage = null, array $options = [])
+    function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
     {
         $perPage = $perPage;
 
@@ -48,8 +48,14 @@ class HomeController extends Controller
         $lista = json_decode($response->getBody()->getContents(), true);
         $retorno = $this->paginator_instance($lista['pokemon_entries']);
 
+        $back = $retorno->currentPage() > 1;
+        $previousPage = $back ? $retorno->currentPage() - 1 : $retorno->currentPage();
+        $nextPage = $retorno->currentPage() + 1;
+
         return view('home', [
-            'lista' => $retorno
+            'lista' => $retorno,
+            'previousPage' => $previousPage,
+            'nextPage' => $nextPage,
         ]);
     }
 
