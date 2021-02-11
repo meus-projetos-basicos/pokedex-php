@@ -58,5 +58,7 @@ A lista está sendo visualizada assim como seus botões de acesso para os seus d
 Cada pokemon tem os suas devidas características de poder, habilidades, forças, etc.
 Detalhei só os mais básicos.
 
+<p><img src="https://github.com/R4YC0NLima/pokedex-php/workflows/Pokedex-PHP%20Workflow/badge.svg"></p>
+
 
 
