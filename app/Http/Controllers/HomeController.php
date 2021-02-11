@@ -11,7 +11,15 @@ use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
 
-    function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
+    /**
+     * @param $items
+     * @param array $requests
+     * @param int $perPage
+     * @param null $currentPage
+     * @param array $options
+     * @return LengthAwarePaginator
+     */
+    public function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
     {
 //        $perPage = $perPage;
 
@@ -30,7 +38,7 @@ class HomeController extends Controller
         return $paginator->appends($requests);
     }
 
-    private function getApi()
+    private function getApi(): Client
     {
         return $client = new Client([
             'base_uri' => 'https://pokeapi.co/',
