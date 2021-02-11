@@ -19,7 +19,7 @@ class HomeController extends Controller
      * @param array $options
      * @return LengthAwarePaginator
      */
-    public function paginator_instance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
+    public function paginatorInstance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
     {
 //        $perPage = $perPage;
 
@@ -54,7 +54,7 @@ class HomeController extends Controller
         $client = $this->getApi();
         $response = $client->request('get', 'api/v2/pokedex/1');
         $lista = json_decode($response->getBody()->getContents(), true);
-        $retorno = $this->paginator_instance($lista['pokemon_entries']);
+        $retorno = $this->paginatorInstance($lista['pokemon_entries']);
 
         $back = $retorno->currentPage() > 1;
         $previousPage = $back ? $retorno->currentPage() - 1 : $retorno->currentPage();
