@@ -11,15 +11,23 @@ use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
 
-    function paginator_instance($items, $requests = [], $perPage = 5, $currentPage = null, array $options = [])
+    /**
+     * @param $items
+     * @param array $requests
+     * @param int $perPage
+     * @param null $currentPage
+     * @param array $options
+     * @return LengthAwarePaginator
+     */
+    public function paginatorInstance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
     {
-        $perPage = $perPage;
+//        $perPage = $perPage;
 
-        $page = $currentPage ? $currentPage : \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage();
+        $page = $currentPage ? $currentPage : LengthAwarePaginator::resolveCurrentPage();
 
         $currentPageSearchResults = collect($items)->slice(($page - 1) * $perPage, $perPage)->all();
 
-        $paginator = (new \Illuminate\Pagination\LengthAwarePaginator($currentPageSearchResults, count($items), $perPage, $page, $options >= 1
+        $paginator = (new LengthAwarePaginator($currentPageSearchResults, count($items), $perPage, $page, $options >= 1
             ? $options
             : [
                 'path' => \Illuminate\Pagination\Paginator::resolveCurrentPath(),
@@ -30,7 +38,7 @@ class HomeController extends Controller
         return $paginator->appends($requests);
     }
 
-    private function getApi()
+    private function getApi(): Client
     {
         return $client = new Client([
             'base_uri' => 'https://pokeapi.co/',
@@ -46,10 +54,16 @@ class HomeController extends Controller
         $client = $this->getApi();
         $response = $client->request('get', 'api/v2/pokedex/1');
         $lista = json_decode($response->getBody()->getContents(), true);
-        $retorno = $this->paginator_instance($lista['pokemon_entries']);
+        $retorno = $this->paginatorInstance($lista['pokemon_entries']);
+
+        $back = $retorno->currentPage() > 1;
+        $previousPage = $back ? $retorno->currentPage() - 1 : $retorno->currentPage();
+        $nextPage = $retorno->currentPage() + 1;
 
         return view('home', [
-            'lista' => $retorno
+            'lista' => $retorno,
+            'previousPage' => $previousPage,
+            'nextPage' => $nextPage,
         ]);
     }
 

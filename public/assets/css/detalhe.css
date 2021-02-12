@@ -1,0 +1,75 @@
+.areaTotal {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ladoEsquerdo {
+    background-color: whitesmoke;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 40%;
+    height: 100vh;
+}
+
+.ladoDireito {
+    display: flex;
+    align-items: center;
+    background-color: #470006;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 60%;
+    height: 100vh;
+}
+
+.card {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.card-mobile {
+    display: none;
+}
+
+.linha-vertical {
+    height: 100vh;
+    border-left: 8px solid;
+}
+
+.circulo {
+    background-color: whitesmoke;
+    position: absolute;
+    margin-left: -80px;
+    bottom: 50px;
+    border-radius: 100%;
+    border: 10px solid #212529;
+    width: 150px;
+    height: 150px;
+}
+
+
+
+@media screen and (max-width: 360px) {
+    .ladoEsquerdo {
+        display: none;
+    }
+
+    .linha-vertical {
+        display: none;
+    }
+
+    .ladoDireito {
+        width: 100%;
+    }
+
+    .ladoDireito .container {
+        margin-top: 40em;
+    }
+
+    .desktop {
+        display: none;
+    }
+
+    .card-mobile {
+        display: block;
+    }
+}

@@ -1,0 +1,18 @@
+  name: NPM Workflow
+  on:
+    push:
+      paths:
+        - 'resources/js/*'
+  jobs:
+    build:
+      name: Pokedex Laravel Build
+      runs-on: ubuntu-latest
+      steps:
+        # Esta ação faz o check-out de seu repositório em $GITHUB_WORKSPACE, para que seu fluxo de trabalho possa acessá-lo.
+        - uses: actions/checkout@v2
+
+        # Instalação dos pacotes nodes
+        - run: npm install
+
+        # Compilação dos pacotes nodes à producao
+        - run: npm run production

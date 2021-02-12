@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class PokemonControllerTest extends TestCase
 {
+    use WithoutMiddleware;
     /**
      * A basic feature test example.
      *
@@ -26,4 +28,12 @@ class PokemonControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testPokemonSearch()
+    {
+        $response = $this->postJson('/search', [
+            'filter' => 'Pikachu'
+        ]);
+
+        $response->assertStatus(200);
+    }
 }
