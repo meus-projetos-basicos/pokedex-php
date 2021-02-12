@@ -1,5 +1,7 @@
 name: automerge
+
 # automerge
+
 on:
   pull_request:
     types:
