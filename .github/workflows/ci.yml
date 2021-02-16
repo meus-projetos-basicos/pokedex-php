@@ -1,6 +1,7 @@
-name: Pokedex-PHP Workflow
+name: ci-pull-request
 
 on:
+  # Branch centralizador do pull_request
   pull_request:
     branches:
       - develop
