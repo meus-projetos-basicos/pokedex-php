@@ -5,10 +5,7 @@ on:
     branches:
       - 'feature/**'
       - 'develop'
-  pull_request:
-    branches:
-      - 'feature/**'
-      - 'develop'
+
 
 jobs:
   build:
