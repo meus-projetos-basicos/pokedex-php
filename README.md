@@ -60,5 +60,5 @@ Detalhei só os mais básicos.
 
 <p><img src="https://github.com/R4YC0NLima/pokedex-php/workflows/Pokedex-PHP%20Workflow/badge.svg"></p>
 
-
+<p>Ok!</p>
 

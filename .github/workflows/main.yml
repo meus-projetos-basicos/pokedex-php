@@ -2,9 +2,13 @@ name: Pokedex-PHP Workflow
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - 'feature/**'
+      - 'develop'
   pull_request:
-    branches: [ main ]
+    branches:
+      - 'feature/**'
+      - 'develop'
 
 jobs:
   build:
