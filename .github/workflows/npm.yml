@@ -3,7 +3,7 @@
     push:
       paths:
         - 'resources/js/*'
-        
+
   jobs:
     build:
       name: Pokedex Laravel Build
