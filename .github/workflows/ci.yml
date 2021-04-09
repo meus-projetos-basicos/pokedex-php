@@ -1,9 +1,10 @@
 name: ci-pull-request
 
 on:
-  pull_request:
+  push:
     branches:
-      - develop
+      - 'feature/**'
+      - 'develop'
 
 jobs:
   build:
