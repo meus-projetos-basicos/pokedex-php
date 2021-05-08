@@ -11,10 +11,10 @@ class HomeController extends Controller
 {
 
     /**
-     * @param $items
+     * @param       $items
      * @param array $requests
-     * @param int $perPage
-     * @param null $currentPage
+     * @param int   $perPage
+     * @param null  $currentPage
      * @param array $options
      * @return LengthAwarePaginator
      */
@@ -27,8 +27,8 @@ class HomeController extends Controller
         $paginator = (new LengthAwarePaginator($currentPageSearchResults, count($items), $perPage, $page, $options >= 1
             ? $options
             : [
-                'path' => Paginator::resolveCurrentPath(),
-                'pageName' => 'page',
+                'path'      => Paginator::resolveCurrentPath(),
+                'pageName'  => 'page',
             ])
         );
 
@@ -38,8 +38,8 @@ class HomeController extends Controller
     private function getApi(): Client
     {
         return new Client([
-            'base_uri' => 'https://pokeapi.co/',
-            'timeout' => 2.0
+            'base_uri'  => 'https://pokeapi.co/',
+            'timeout'   => 2.0
         ]);
     }
 
@@ -48,28 +48,30 @@ class HomeController extends Controller
         /**
          * @var LengthAwarePaginator
          */
-        $client = $this->getApi();
-        $response = $client->request('get', 'api/v2/pokedex/1');
-        $lista = json_decode($response->getBody()->getContents(), true);
-        $retorno = $this->paginatorInstance($lista['pokemon_entries']);
+        $client     = $this->getApi();
+        $response   = $client->request('get', 'api/v2/pokedex/1');
+        $lista      = json_decode($response->getBody()->getContents(), true);
+        $retorno    = $this->paginatorInstance($lista['pokemon_entries']);
 
-        $back = $retorno->currentPage() > 1;
-        $previousPage = $back ? $retorno->currentPage() - 1 : $retorno->currentPage();
-        $nextPage = $retorno->currentPage() + 1;
+        var_dump($retorno);
+
+        $back           = $retorno->currentPage() > 1;
+        $previousPage   = $back ? $retorno->currentPage() - 1 : $retorno->currentPage();
+        $nextPage       = $retorno->currentPage() + 1;
 
         return view('home', [
-            'lista' => $retorno,
-            'previousPage' => $previousPage,
-            'nextPage' => $nextPage,
+            'lista'         => $retorno,
+            'previousPage'  => $previousPage,
+            'nextPage'      => $nextPage,
         ]);
     }
 
     public function consultaApi(SearchFormRequest $request)
     {
-        $client = $this->getApi();
-        $filtro = strtolower($request->filter);
-        $response = $client->request('get', "api/v2/pokemon/$filtro");
-        $retorno = json_decode($response->getBody()->getContents(), true);
+        $client     = $this->getApi();
+        $filtro     = strtolower($request->filter);
+        $response   = $client->request('get', "api/v2/pokemon/$filtro");
+        $retorno    = json_decode($response->getBody()->getContents(), true);
 
 
         return view('detalhes', [
@@ -79,9 +81,9 @@ class HomeController extends Controller
 
     public function pokemonDetail($id)
     {
-        $client = $this->getApi();
-        $response = $client->request('get', "api/v2/pokemon/$id");
-        $retorno = json_decode($response->getBody()->getContents(), true);
+        $client     = $this->getApi();
+        $response   = $client->request('get', "api/v2/pokemon/$id");
+        $retorno    = json_decode($response->getBody()->getContents(), true);
 
         return view('detalhes', [
             'retorno' => $retorno,
