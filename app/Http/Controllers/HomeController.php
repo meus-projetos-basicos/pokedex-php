@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchFormRequest;
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\Paginator;
 
 class HomeController extends Controller
 {
@@ -21,8 +20,6 @@ class HomeController extends Controller
      */
     public function paginatorInstance($items, $requests = [], $perPage = 10, $currentPage = null, array $options = [])
     {
-//        $perPage = $perPage;
-
         $page = $currentPage ? $currentPage : LengthAwarePaginator::resolveCurrentPage();
 
         $currentPageSearchResults = collect($items)->slice(($page - 1) * $perPage, $perPage)->all();
@@ -30,7 +27,7 @@ class HomeController extends Controller
         $paginator = (new LengthAwarePaginator($currentPageSearchResults, count($items), $perPage, $page, $options >= 1
             ? $options
             : [
-                'path' => \Illuminate\Pagination\Paginator::resolveCurrentPath(),
+                'path' => Paginator::resolveCurrentPath(),
                 'pageName' => 'page',
             ])
         );
@@ -40,7 +37,7 @@ class HomeController extends Controller
 
     private function getApi(): Client
     {
-        return $client = new Client([
+        return new Client([
             'base_uri' => 'https://pokeapi.co/',
             'timeout' => 2.0
         ]);
