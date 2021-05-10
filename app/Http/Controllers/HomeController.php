@@ -53,8 +53,6 @@ class HomeController extends Controller
         $lista      = json_decode($response->getBody()->getContents(), true);
         $retorno    = $this->paginatorInstance($lista['pokemon_entries']);
 
-        var_dump($retorno);
-
         $back           = $retorno->currentPage() > 1;
         $previousPage   = $back ? $retorno->currentPage() - 1 : $retorno->currentPage();
         $nextPage       = $retorno->currentPage() + 1;

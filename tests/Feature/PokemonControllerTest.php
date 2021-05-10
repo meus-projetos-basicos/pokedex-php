@@ -23,7 +23,7 @@ class PokemonControllerTest extends TestCase
 
     public function testPokemonDetail()
     {
-        $response = $this->get('/pokemon/25');
+        $response = $this->get('/pokemon/10');
 
         $response->assertStatus(200);
     }

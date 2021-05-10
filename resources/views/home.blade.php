@@ -1,7 +1,5 @@
 @extends('main')
 
-
-
 @section('content')
 
     <div class="areaTotal">
