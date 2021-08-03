@@ -19,7 +19,7 @@
         </div>
 
         <div class="linha-vertical">
-            <div class="circulo"></div>
+            <div class="circulo teste"></div>
         </div>
 
         <div class="ladoDireito">
